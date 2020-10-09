@@ -5,11 +5,12 @@ import './Header.css'
 
 export default class Header extends Component {
   handleLogoutClick = () => {
+    TokenService.clearAuthToken()
   }
 
   renderLogoutLink() {
     return (
-      <div className='Header__logged-in'>
+      <div>
         <Link
           onClick={this.handleLogoutClick}
           to='/'>
@@ -21,7 +22,7 @@ export default class Header extends Component {
 
   renderLoginLink() {
     return (
-      <div className='Header__not-logged-in'>
+      <div>
         <Link
           to='/login'>
           Log in
@@ -37,11 +38,9 @@ export default class Header extends Component {
   render() {
     return <>
       <nav className='Header'>
-        <h1>
-          <Link to='/'>
+          <h1>
             Meeple
-          </Link>
-        </h1>
+          </h1>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
           : this.renderLoginLink()}

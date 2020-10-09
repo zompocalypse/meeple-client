@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa');
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'comfortaa';
+}
+
+h1 {
+  font-family: 'Comfortaa';
+  font-size: 52px;
+}
+
+.nav-buttons {
+  margin: 0 auto;
+}
+
+.nav-buttons button, .hero button, .banner button, .add-button, .filter-sort-search button {
+  border-color: #18A0FB;
+  width: 130px;
+  height: 40px;
+  font-weight: 900;
+  margin: 0 5px;
+}
+
+.standard {
+  background-color: #18A0FB;
+  color: #FFF;
+}
+ 
+.hollow {
+  background-color: #FFF;
+  color: #18A0FB;
+}
+
+.hero {
+  filter: blur(4px);
+  -webkit-filter: blur(4px);;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hero-text {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.6); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 80%;
+  padding: 20px 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.chevron {
+  position: absolute;
+  left: 50%;
+  top: 95%;
+  color: #FFF;
+  border-radius: 50%;
+  border-color: #fff;
+  border-style: solid;
+  padding: 5px;
+}
+
+.what {
+  text-align: center;
+}
+
+.what h3 {
+  font-size: 24px;
+}
+
+.how {
+  text-align: center;
+}
+.how img {
+  width: 50%;
+  border-radius: 50%;
+}
+.how h4 {
+  font-size: 18px;
+}
+
+.banner {
+  background-color: #F5F5F5;
+  text-align: center;
+  padding: 20px 0;
+}
+
+footer {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.container {
+  height: 100%;
+}
+
+.container-blur {
+  height: 100%;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+.app-heading {
+  margin: 0;
+}
+
+.games {
+  height: 70%;
+  overflow: scroll;
+}
+
+.game {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #18A0FB;
+  margin-bottom: 5px;
+}
+
+.expanded-game-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.expanded-game {
+  height: fit-content;
+  margin-bottom: 5px;
+}
+
+.hero-game {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.85); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 80%;
+  padding: 20px 20px 40px;
+}
+
+.app-topbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.app-topbar button {
+  margin-top: 10px;
+}
+
+.app-topbar h1 {
+  font-size: 36px;
+}
+
+.filter-sort-search {
+  margin: 20px 0 10px;
+}
+
+.filter-sort-search input {
+  height: 35px;
+}
+
+.rating {
+  border: 1px solid #18A0FB; 
+  background-color: #18A0FB;
+  color: #FFF;
+  width:40px;
+  height: 40px;
+  margin: 5px 5px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.yellow {
+  color: yellow;
+}
+
+.simulation {
+  text-decoration: none;
+}
