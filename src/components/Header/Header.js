@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import TokenService from '../../services/token-service'
 import './Header.css'
 
-export default class Header extends Component {
+class Header extends Component {
   handleLogoutClick = () => {
     TokenService.clearAuthToken()
   }
@@ -48,3 +48,5 @@ export default class Header extends Component {
     </>
   }
 }
+
+export default withRouter(Header)

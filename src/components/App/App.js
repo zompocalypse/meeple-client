@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import PrivateRoute from '../Utils/PrivateRoute'
 import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
@@ -8,13 +8,9 @@ import RegisterPage from '../../routes/RegisterPage'
 import CollectionPage from '../../routes/CollectionPage'
 import LandingPage from '../../routes/LandingPage'
 
-import CollectionContext from '../../contexts/CollectionContext'
-
 import './App.css'
 
 export default class App extends Component {
-  static contextType = CollectionContext
-
   state = { hasError: false }
 
   static getDerivedStateFromError(error) {

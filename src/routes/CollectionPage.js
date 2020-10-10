@@ -7,6 +7,9 @@ import jwt_decode from 'jwt-decode'
 import TokenService from '../services/token-service'
 import { Section, Button } from '../components/Utils/Utils'
 import NewGameForm from '../components/NewGameForm/NewGameForm'
+import CollectionItemDetailView from '../components/CollectionItemDetailView/CollectionItemDetailView'
+
+import './CollectionPage.css'
 
 export default class CollectionPage extends Component {
   static contextType = CollectionContext
@@ -14,10 +17,11 @@ export default class CollectionPage extends Component {
   state = {
     hideShowGames: false,
     hideShowNewGameForm: false,
+    expandedCollectionItem: {}
   }
 
   componentDidMount() {
-    CollectionApiService.getCollection(this.props.match.params.collection_path)
+    CollectionApiService.getByCollectionPath(this.props.match.params.collection_path)
       .then(this.context.setUserData(jwt_decode(TokenService.getAuthToken())))
       .then(this.context.setCollectionList)
       .catch(this.context.setError)
@@ -56,11 +60,16 @@ export default class CollectionPage extends Component {
 
   renderCollection = () => {
     const { collectionList = [] } = this.context
-    return collectionList.map(item =>
+    return (
+      <ul>
+        {collectionList.map(item =>
       <CollectionItem
         key={item.id}
         collection={item}
+        expandCollectionDetails={this.expandCollectionDetails}
       />
+    )}
+      </ul>
     )
   }
 
@@ -73,6 +82,13 @@ export default class CollectionPage extends Component {
     CollectionApiService.addToCollection(gameId)
     
     this.setState({ error: null })
+  }
+
+  expandCollectionDetails = (collectionId) => {
+    const expandedItem = this.context.collectionList.filter(collection => collection.id === collectionId)
+    this.setState({
+      expandedCollectionItem: expandedItem[0]
+    })
   }
 
   render() {
@@ -89,12 +105,22 @@ export default class CollectionPage extends Component {
           ''
         }
         </Section>
-        {this.state.hideShowGames &&
+        <Section className="MainView">
+          <div className="CollectionList">
+          {this.state.hideShowGames &&
           this.renderBoardGameList()
         }
         {error
           ? <p>An error occurred</p>
           : this.renderCollection()}
+          </div>
+          <div className="DetailView">
+            <CollectionItemDetailView
+              expandedCollectionItem={this.state.expandedCollectionItem}
+            />
+          </div>
+        </Section>
+        
       </>
     )
   }

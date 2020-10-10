@@ -2,7 +2,7 @@ import config from '../config'
 import TokenService from '../services/token-service'
 
 const CollectionApiService = {
-  getCollection(collectionPath) {
+  getByCollectionPath(collectionPath) {
     return fetch(`${config.API_ENDPOINT}/collections/${collectionPath}`, {
       headers: {
         'Authorization': `bearer ${TokenService.getAuthToken()}`
@@ -13,6 +13,21 @@ const CollectionApiService = {
       ? res.json().then(e => Promise.reject(e))
       : res.json()
     )
+  },
+  addToCollection(gameId) {
+    return fetch(`${config.API_ENDPOINT}/collections`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+      body: JSON.stringify({
+        boardgame_id: gameId,
+      })
+    })
+  },
+  updateCollectionItem(collectionId) {
+    
   },
   getBoardGames() {
     return fetch(`${config.API_ENDPOINT}/boardgames/`, {
@@ -47,18 +62,6 @@ const CollectionApiService = {
       ? res.json().then(e => Promise.reject(e))
       : res.json()
       )
-  },
-  addToCollection(gameId) {
-    return fetch(`${config.API_ENDPOINT}/collections`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-      },
-      body: JSON.stringify({
-        boardgame_id: gameId,
-      })
-    })
   },
 }
 
