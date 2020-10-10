@@ -1,72 +1,57 @@
 import React, { Component } from 'react';
-import TokenService from '../../services/token-service'
-import  AuthApiService from '../../services/auth-api-service'
-import { Button, Input } from '../Utils/Utils'
+import TokenService from '../../services/token-service';
+import AuthApiService from '../../services/auth-api-service';
+import { Button, Input } from '../Utils/Utils';
 
-import jwt_decode from 'jwt-decode'
+import jwt_decode from 'jwt-decode';
 
 export default class LoginForm extends Component {
   static defaultProps = {
-    onLoginSuccess: () => {}
-  }
+    onLoginSuccess: () => {},
+  };
 
-  state = { error: null }
+  state = { error: null };
 
-  handleSubmitJwtAuth = ev => {
-    ev.preventDefault()
-    this.setState({ error: null })
-    const { email, password } = ev.target
+  handleSubmitJwtAuth = (ev) => {
+    ev.preventDefault();
+    this.setState({ error: null });
+    const { email, password } = ev.target;
 
     AuthApiService.postLogin({
       email: email.value,
       password: password.value,
     })
-      .then(res => {
-        email.value = ''
-        password.value = ''
-        TokenService.saveAuthToken(res.authToken)
-        this.props.onLoginSuccess(jwt_decode(res.authToken))
+      .then((res) => {
+        email.value = '';
+        password.value = '';
+        TokenService.saveAuthToken(res.authToken);
+        this.props.onLoginSuccess(jwt_decode(res.authToken));
       })
-      .catch(res => {
-        this.setState({ error: res.error })
-      })
-  }
+      .catch((res) => {
+        this.setState({ error: res.error });
+      });
+  };
 
   render() {
-    const { error } = this.state
+    const { error } = this.state;
     return (
-      <form
-        className='LoginForm'
-        onSubmit={this.handleSubmitJwtAuth}
-      >
-        <div role='alert'>
-          {error && <p className='red'>{error}</p>}
+      <form className="LoginForm" onSubmit={this.handleSubmitJwtAuth}>
+        <div role="alert">{error && <p className="red">{error}</p>}</div>
+        <div className="email">
+          <label htmlFor="LoginForm_email">Email Address</label>
+          <Input required name="email" id="LoginForm_email"></Input>
         </div>
-        <div className='email'>
-          <label htmlFor='LoginForm_email'>
-            Email Address
-          </label>
+        <div className="password">
+          <label htmlFor="LoginForm_password">Password</label>
           <Input
             required
-            name='email'
-            id='LoginForm_email'>
-          </Input>
+            name="password"
+            type="password"
+            id="LoginForm_password"
+          ></Input>
         </div>
-        <div className='password'>
-          <label htmlFor='LoginForm_password'>
-            Password
-          </label>
-          <Input
-            required
-            name='password'
-            type='password'
-            id='LoginForm_password'>
-          </Input>
-        </div>
-        <Button type='submit'>
-          Login
-        </Button>
+        <Button type="submit">Login</Button>
       </form>
-    )
+    );
   }
 }

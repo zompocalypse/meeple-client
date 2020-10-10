@@ -1,15 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import './CollectionItem.css'
+import './CollectionItem.css';
 
 export default class CollectionItem extends Component {
-
   render() {
-    const { collection, expandCollectionDetails } = this.props
+    const { collection, expandCollectionDetails } = this.props;
     return (
       <div id={collection.id}>
-        <li onClick={() => expandCollectionDetails(collection.id)} className="CollectionList_item">{collection.title}</li>
+        <li
+          onClick={() => expandCollectionDetails(collection.id)}
+          className="CollectionList_item"
+        >
+          {collection.title}
+        </li>
       </div>
-    )
+    );
   }
 }

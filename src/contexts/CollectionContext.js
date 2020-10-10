@@ -4,7 +4,7 @@ const CollectionContext = React.createContext({
   collectionList: [],
   boardGameList: [],
   userData: {
-    collectionPath: ''
+    collectionPath: '',
   },
   error: null,
   setError: () => {},
@@ -12,47 +12,47 @@ const CollectionContext = React.createContext({
   setCollectionList: () => {},
   setUserData: () => {},
   setAvailableBoardGames: () => {},
-})
+});
 
-export default CollectionContext
+export default CollectionContext;
 
 export class CollectionProvider extends Component {
   state = {
     collectionList: [],
     boardGameList: [],
-    userData:{
-      collectionPath: ''
+    userData: {
+      collectionPath: '',
     },
     error: null,
-  }
+  };
 
-  setUserData = userData => {
-    const { collection_path, user_id, first_name, sub } = userData
+  setUserData = (userData) => {
+    const { collection_path, user_id, first_name, sub } = userData;
     this.setState({
-      userData:{
-      userId: user_id,
-      firstName: first_name,
-      email: sub,
-      collectionPath: collection_path
-      }
-    })
-  }
+      userData: {
+        userId: user_id,
+        firstName: first_name,
+        email: sub,
+        collectionPath: collection_path,
+      },
+    });
+  };
 
-  setAvailableBoardGames = boardGameData => {
-    this.setState({ boardGameList: boardGameData })
-  }
+  setAvailableBoardGames = (boardGameData) => {
+    this.setState({ boardGameList: boardGameData });
+  };
 
-  setCollectionList = collectionListData => {
-    this.setState({ collectionList: collectionListData })
-  }
+  setCollectionList = (collectionListData) => {
+    this.setState({ collectionList: collectionListData });
+  };
 
-  setError = error => {
-    this.setState({ error })
-  }
+  setError = (error) => {
+    this.setState({ error });
+  };
 
   clearError = () => {
-    this.setState({ error: null })
-  }
+    this.setState({ error: null });
+  };
 
   render() {
     const value = {
@@ -65,12 +65,11 @@ export class CollectionProvider extends Component {
       setCollectionList: this.setCollectionList,
       setUserData: this.setUserData,
       setAvailableBoardGames: this.setAvailableBoardGames,
-    }
+    };
     return (
       <CollectionContext.Provider value={value}>
         {this.props.children}
       </CollectionContext.Provider>
-    )
+    );
   }
-
 }

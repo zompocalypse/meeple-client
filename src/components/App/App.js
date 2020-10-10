@@ -1,52 +1,41 @@
-import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
-import PrivateRoute from '../Utils/PrivateRoute'
-import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
-import Header from '../Header/Header'
-import LoginPage from '../../routes/LoginPage'
-import RegisterPage from '../../routes/RegisterPage'
-import CollectionPage from '../../routes/CollectionPage'
-import LandingPage from '../../routes/LandingPage'
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from '../Utils/PrivateRoute';
+import PublicOnlyRoute from '../Utils/PublicOnlyRoute';
+import Header from '../Header/Header';
+import LoginPage from '../../routes/LoginPage';
+import RegisterPage from '../../routes/RegisterPage';
+import CollectionPage from '../../routes/CollectionPage';
+import LandingPage from '../../routes/LandingPage';
 
-import './App.css'
+import './App.css';
 
 export default class App extends Component {
-  state = { hasError: false }
+  state = { hasError: false };
 
   static getDerivedStateFromError(error) {
-    console.error(error)
-    return { hasError: true }
+    console.error(error);
+    return { hasError: true };
   }
 
-  render(){
+  render() {
     return (
-      <div className='App'>
-        <header className='App_header'>
+      <div className="App">
+        <header className="App_header">
           <Header />
         </header>
         <main>
           <Switch>
-            <Route
-            exact
-            path={'/'}
-            component={LandingPage}
-            />
-            <PublicOnlyRoute
-              path={'/login'}
-              component={LoginPage}
-            />
-            <PublicOnlyRoute
-            path={'/register'}
-            component={RegisterPage}
-            />
+            <Route exact path={'/'} component={LandingPage} />
+            <PublicOnlyRoute path={'/login'} component={LoginPage} />
+            <PublicOnlyRoute path={'/register'} component={RegisterPage} />
             <PrivateRoute
-            path={'/:collection_path'}
-            component={CollectionPage}
+              path={'/:collection_path'}
+              component={CollectionPage}
             />
           </Switch>
         </main>
       </div>
-  );
+    );
   }
-  
 }
