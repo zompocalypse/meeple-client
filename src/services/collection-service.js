@@ -24,19 +24,31 @@ const CollectionApiService = {
     });
   },
   removeCollectionItem(collectionPath, collectionId) {
-    return fetch(`${config.API_ENDPOINT}/collections/${collectionPath}/${collectionId}`, {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `bearer ${TokenService.getAuthToken()}`,
+    return fetch(
+      `${config.API_ENDPOINT}/collections/${collectionPath}/${collectionId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `bearer ${TokenService.getAuthToken()}`,
+        },
       }
-    })
+    );
   },
-  updateCollectionItem(collectionId) {
-
+  updateCollectionItem() {
+    
   },
   getBoardGames() {
     return fetch(`${config.API_ENDPOINT}/boardgames/`, {
+      headers: {
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
+      },
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
+  getBoardGameRatings() {
+    return fetch(`${config.API_ENDPOINT}/boardgames/average/rating`, {
       headers: {
         Authorization: `bearer ${TokenService.getAuthToken()}`,
       },

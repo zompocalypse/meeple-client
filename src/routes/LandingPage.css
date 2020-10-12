@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa');
 
-body, html {
+body,
+html {
   height: 100%;
   margin: 0;
   font-family: 'comfortaa';
@@ -15,8 +16,12 @@ h1 {
   margin: 0 auto;
 }
 
-.nav-buttons button, .hero button, .banner button, .add-button, .filter-sort-search button {
-  border-color: #18A0FB;
+.nav-buttons button,
+.hero button,
+.banner button,
+.add-button,
+.filter-sort-search button {
+  border-color: #18a0fb;
   width: 130px;
   height: 40px;
   font-weight: 900;
@@ -24,18 +29,18 @@ h1 {
 }
 
 .standard {
-  background-color: #18A0FB;
-  color: #FFF;
+  background-color: #18a0fb;
+  color: #fff;
 }
- 
+
 .hollow {
-  background-color: #FFF;
-  color: #18A0FB;
+  background-color: #fff;
+  color: #18a0fb;
 }
 
 .hero {
   filter: blur(4px);
-  -webkit-filter: blur(4px);;
+  -webkit-filter: blur(4px);
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -43,8 +48,8 @@ h1 {
 }
 
 .hero-text {
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0, 0.6); /* Black w/opacity/see-through */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.6); /* Black w/opacity/see-through */
   color: white;
   font-weight: bold;
   border: 3px solid #f1f1f1;
@@ -65,7 +70,7 @@ h1 {
   position: absolute;
   left: 50%;
   top: 95%;
-  color: #FFF;
+  color: #fff;
   border-radius: 50%;
   border-color: #fff;
   border-style: solid;
@@ -92,7 +97,7 @@ h1 {
 }
 
 .banner {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   text-align: center;
   padding: 20px 0;
 }
@@ -124,7 +129,7 @@ footer {
 .game {
   display: flex;
   justify-content: space-between;
-  border: 1px solid #18A0FB;
+  border: 1px solid #18a0fb;
   margin-bottom: 5px;
 }
 
@@ -140,8 +145,8 @@ footer {
 }
 
 .hero-game {
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0, 0.85); /* Black w/opacity/see-through */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.85); /* Black w/opacity/see-through */
   color: white;
   font-weight: bold;
   border: 3px solid #f1f1f1;
@@ -176,11 +181,11 @@ footer {
   height: 35px;
 }
 
-.rating {
-  border: 1px solid #18A0FB; 
-  background-color: #18A0FB;
-  color: #FFF;
-  width:40px;
+.lp_rating {
+  border: 1px solid #18a0fb;
+  background-color: #18a0fb;
+  color: #fff;
+  width: 40px;
   height: 40px;
   margin: 5px 5px;
   text-align: center;

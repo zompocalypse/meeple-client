@@ -18,11 +18,13 @@ export default class CollectionPage extends Component {
     hideShowGames: false,
     hideShowNewGameForm: false,
     expandedCollectionItem: {},
+    expandedCollectionItemRating: {},
     collectionList: [],
     boardGameList: [],
+    boardGameRating: [],
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     CollectionApiService.getByCollectionPath(
       this.props.match.params.collection_path
     )
@@ -32,6 +34,10 @@ export default class CollectionPage extends Component {
 
     CollectionApiService.getBoardGames()
       .then(this.setAvailableBoardGames)
+      .catch(this.context.setError);
+
+    CollectionApiService.getBoardGameRatings()
+      .then(this.setBoardGameRatings)
       .catch(this.context.setError);
   }
 
@@ -43,12 +49,23 @@ export default class CollectionPage extends Component {
     this.setState({ collectionList: collectionListData });
   };
 
+  setBoardGameRatings = (boardGameRating) => {
+    this.setState({ boardGameRating: boardGameRating });
+  };
+
+  updateOwnerStatus = (collectionId, newData) => {};
+
   toggleAddNewGameForm = () => {
     this.setState({ hideShowNewGameForm: !this.state.hideShowNewGameForm });
   };
 
   renderNewGameForm = () => {
-    return <NewGameForm />;
+    return (
+      <NewGameForm
+        toggleAddNewGameForm={this.toggleAddNewGameForm}
+        toggleGames={this.toggleGames}
+      />
+    );
   };
 
   renderBoardGameList = () => {
@@ -108,8 +125,12 @@ export default class CollectionPage extends Component {
     const expandedItem = this.state.collectionList.filter(
       (collection) => collection.id === collectionId
     );
+    const thisRating = this.state.boardGameRating.filter(
+      (rating) => rating.boardgame_id === collectionId
+    );
     this.setState({
       expandedCollectionItem: expandedItem[0],
+      expandedCollectionItemRating: thisRating[0],
     });
   };
 
@@ -129,6 +150,10 @@ export default class CollectionPage extends Component {
       newAvailableBoardGame,
     ]);
   };
+
+  updateCollectionDetails = (idToUpdate, field) => {
+    
+  }
 
   render() {
     const { error, userData } = this.context;
@@ -153,6 +178,11 @@ export default class CollectionPage extends Component {
             <CollectionItemDetailView
               expandedCollectionItem={this.state.expandedCollectionItem}
               handleRemoveFromCollection={this.handleRemoveFromCollection}
+              path={this.props.match.params.collection_path}
+              expandedCollectionItemRating={
+                this.state.expandedCollectionItemRating
+              }
+              handleOwnerStatusChange={this.handleOwnerStatusChange}
             />
           </div>
         </Section>

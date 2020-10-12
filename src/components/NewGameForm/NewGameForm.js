@@ -11,6 +11,7 @@ export default class NewGameForm extends Component {
   state = { error: null };
 
   handleSubmit = (ev) => {
+    const { toggleGames, toggleAddNewGameForm } = this.props;
     ev.preventDefault();
     const {
       title,
@@ -37,6 +38,10 @@ export default class NewGameForm extends Component {
         type.value = '';
         minimum_players.value = '';
         maximum_players.value = '';
+      })
+      .then(() => {
+        toggleGames();
+        toggleAddNewGameForm();
       })
       .catch((res) => {
         this.setState({ error: res.error });
