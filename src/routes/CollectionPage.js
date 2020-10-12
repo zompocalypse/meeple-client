@@ -18,6 +18,8 @@ export default class CollectionPage extends Component {
     hideShowGames: false,
     hideShowNewGameForm: false,
     expandedCollectionItem: {},
+    collectionList: [],
+    boardGameList: [],
   };
 
   componentDidMount() {
@@ -25,13 +27,21 @@ export default class CollectionPage extends Component {
       this.props.match.params.collection_path
     )
       .then(this.context.setUserData(jwt_decode(TokenService.getAuthToken())))
-      .then(this.context.setCollectionList)
+      .then(this.setCollectionList)
       .catch(this.context.setError);
 
     CollectionApiService.getBoardGames()
-      .then(this.context.setAvailableBoardGames)
+      .then(this.setAvailableBoardGames)
       .catch(this.context.setError);
   }
+
+  setAvailableBoardGames = (boardGameData) => {
+    this.setState({ boardGameList: boardGameData });
+  };
+
+  setCollectionList = (collectionListData) => {
+    this.setState({ collectionList: collectionListData });
+  };
 
   toggleAddNewGameForm = () => {
     this.setState({ hideShowNewGameForm: !this.state.hideShowNewGameForm });
@@ -42,7 +52,7 @@ export default class CollectionPage extends Component {
   };
 
   renderBoardGameList = () => {
-    const { boardGameList = [] } = this.context;
+    const { boardGameList = [] } = this.state;
     return (
       <>
         <Button
@@ -61,7 +71,7 @@ export default class CollectionPage extends Component {
   };
 
   renderCollection = () => {
-    const { collectionList = [] } = this.context;
+    const { collectionList = [] } = this.state;
     return (
       <ul>
         {collectionList.map((item) => (
@@ -75,24 +85,49 @@ export default class CollectionPage extends Component {
     );
   };
 
+  addToCollection = (collectionList) => {
+    this.setState({ collectionList });
+  };
+
   toggleGames = () => {
     this.setState({ hideShowGames: !this.state.hideShowGames });
   };
 
   handleAddToCollection = (gameId) => {
-    console.log(gameId);
-    CollectionApiService.addToCollection(gameId);
-
-    this.setState({ error: null });
+    CollectionApiService.addToCollection(gameId)
+      .then((data) => data.json())
+      .then((data) =>
+        this.addToCollection([...this.state.collectionList, data])
+      );
+    this.setAvailableBoardGames(
+      this.state.boardGameList.filter((item) => item.id !== gameId)
+    );
   };
 
   expandCollectionDetails = (collectionId) => {
-    const expandedItem = this.context.collectionList.filter(
+    const expandedItem = this.state.collectionList.filter(
       (collection) => collection.id === collectionId
     );
     this.setState({
       expandedCollectionItem: expandedItem[0],
     });
+  };
+
+  removeFromCollection = (collectionList) => {
+    this.setState({ collectionList, expandedCollectionItem: {} });
+  };
+
+  handleRemoveFromCollection = (idToRemove, boardgame_id, title) => {
+    const collectionPath = this.context.userData.collectionPath;
+    const newAvailableBoardGame = { id: boardgame_id, title: title };
+    CollectionApiService.removeCollectionItem(collectionPath, idToRemove);
+    this.removeFromCollection(
+      this.state.collectionList.filter((item) => item.id !== idToRemove)
+    );
+    this.setAvailableBoardGames([
+      ...this.state.boardGameList,
+      newAvailableBoardGame,
+    ]);
   };
 
   render() {
@@ -117,6 +152,7 @@ export default class CollectionPage extends Component {
           <div className="DetailView">
             <CollectionItemDetailView
               expandedCollectionItem={this.state.expandedCollectionItem}
+              handleRemoveFromCollection={this.handleRemoveFromCollection}
             />
           </div>
         </Section>

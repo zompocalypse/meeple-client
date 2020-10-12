@@ -23,7 +23,18 @@ const CollectionApiService = {
       }),
     });
   },
-  updateCollectionItem(collectionId) {},
+  removeCollectionItem(collectionPath, collectionId) {
+    return fetch(`${config.API_ENDPOINT}/collections/${collectionPath}/${collectionId}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
+      }
+    })
+  },
+  updateCollectionItem(collectionId) {
+
+  },
   getBoardGames() {
     return fetch(`${config.API_ENDPOINT}/boardgames/`, {
       headers: {

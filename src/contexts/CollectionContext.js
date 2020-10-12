@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 
 const CollectionContext = React.createContext({
-  collectionList: [],
-  boardGameList: [],
   userData: {
     collectionPath: '',
   },
   error: null,
   setError: () => {},
   clearError: () => {},
-  setCollectionList: () => {},
   setUserData: () => {},
-  setAvailableBoardGames: () => {},
 });
 
 export default CollectionContext;
 
 export class CollectionProvider extends Component {
   state = {
-    collectionList: [],
-    boardGameList: [],
     userData: {
       collectionPath: '',
     },
@@ -38,14 +32,6 @@ export class CollectionProvider extends Component {
     });
   };
 
-  setAvailableBoardGames = (boardGameData) => {
-    this.setState({ boardGameList: boardGameData });
-  };
-
-  setCollectionList = (collectionListData) => {
-    this.setState({ collectionList: collectionListData });
-  };
-
   setError = (error) => {
     this.setState({ error });
   };
@@ -56,15 +42,11 @@ export class CollectionProvider extends Component {
 
   render() {
     const value = {
-      collectionList: this.state.collectionList,
-      boardGameList: this.state.boardGameList,
       userData: this.state.userData,
       error: this.state.error,
       setError: this.setError,
       clearError: this.clearError,
-      setCollectionList: this.setCollectionList,
       setUserData: this.setUserData,
-      setAvailableBoardGames: this.setAvailableBoardGames,
     };
     return (
       <CollectionContext.Provider value={value}>
