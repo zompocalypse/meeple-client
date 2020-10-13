@@ -18,40 +18,38 @@ export default class App extends Component {
 
   render() {
     return (
-      <Router>
-        <div className="App">
-          <header className="App_header">
-            <Header />
-          </header>
-          <main>
-            <Switch>
-              <Route exact path={'/'} component={LandingPage} />
-              <PublicOnlyRoute path={'/login'} component={LoginPage} />
-              <PublicOnlyRoute path={'/register'} component={RegisterPage} />
-              <PrivateRoute
-                exact
-                path={'/:collection_path'}
-                component={CollectionPage}
-              />
-              <PrivateRoute
-                exact
-                path={'/:collection_path/add-to-collection'}
-                component={BoardGameList}
-              />
-              <PrivateRoute
-                exact
-                path={'/:collection_path/add-to-collection/create-new'}
-                component={NewGamePage}
-              />
-              <PrivateRoute
-                exact
-                path={'/:collection_path/:collection_id'}
-                component={CollectionItemDetailView}
-              />
-            </Switch>
-          </main>
-        </div>
-      </Router>
+      <div className="App">
+        <header className="App_header">
+          <Header />
+        </header>
+        <main>
+          <Switch>
+            <Route exact path={'/'} component={LandingPage} />
+            <PublicOnlyRoute path={'/login'} component={LoginPage} />
+            <PublicOnlyRoute path={'/register'} component={RegisterPage} />
+            <PrivateRoute
+              exact
+              path={'/:collection_path'}
+              component={CollectionPage}
+            />
+            <PrivateRoute
+              exact
+              path={'/:collection_path/add-to-collection'}
+              component={BoardGameList}
+            />
+            <PrivateRoute
+              exact
+              path={'/:collection_path/add-to-collection/create-new'}
+              component={NewGamePage}
+            />
+            <PrivateRoute
+              exact
+              path={'/:collection_path/:collection_id'}
+              component={CollectionItemDetailView}
+            />
+          </Switch>
+        </main>
+      </div>
     );
   }
 }
