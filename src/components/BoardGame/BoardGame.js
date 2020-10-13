@@ -6,13 +6,13 @@ export default class BoardGame extends Component {
     const { game } = this.props;
     return (
       <li>
-        {game.title}
         <Button
           className="plus"
           onClick={() => this.props.handleAddToCollection(game.id)}
         >
           +
         </Button>
+        {game.title}
       </li>
     );
   }
