@@ -12,8 +12,6 @@ export default class RegisterForm extends Component {
   handleSubmit = (ev) => {
     ev.preventDefault();
     const {
-      first_name,
-      last_name,
       collection_path,
       email,
       password,
@@ -23,13 +21,9 @@ export default class RegisterForm extends Component {
     AuthApiService.postUser({
       email: email.value,
       password: password.value,
-      first_name: first_name.value,
-      last_name: last_name.value,
       collection_path: collection_path.value,
     })
       .then((user) => {
-        first_name.value = '';
-        last_name.value = '';
         collection_path.value = '';
         email.value = '';
         password.value = '';
@@ -45,27 +39,9 @@ export default class RegisterForm extends Component {
     return (
       <form className="RegistrationForm" onSubmit={this.handleSubmit}>
         <div role="alert">{error && <p className="red">{error}</p>}</div>
-        <div className="first_name">
-          <label htmlFor="RegistrationForm_first_name">First Name</label>
-          <Input
-            name="first_name"
-            type="text"
-            required
-            id="RegistrationForm_first_name"
-          ></Input>
-        </div>
-        <div className="last_name">
-          <label htmlFor="RegistrationForm_last_name">Last Name</label>
-          <Input
-            name="last_name"
-            type="text"
-            required
-            id="RegistrationForm_last_name"
-          ></Input>
-        </div>
         <div className="collection_path">
           <label htmlFor="RegistrationForm_collection_path">
-            Collection Path
+            Collection Name
           </label>
           <Input
             name="collection_path"

@@ -9,13 +9,11 @@ export default class CollectionItemDetailView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collectionItem: [
-        {
-          owner_status: '',
-          play_count: '',
-          rating: '',
-        },
-      ],
+      collectionItem: {
+        owner_status: '-',
+        play_count: '',
+        rating: '-',
+      },
       boardGameRating: [],
       error: null,
     };
@@ -32,6 +30,15 @@ export default class CollectionItemDetailView extends Component {
       this.props.match.params.collection_id
     )
       .then(this.setCollectionItemDetail)
+      .then(
+        this.setState({
+          collectionItem: {
+            owner_status: '-',
+            play_count: '',
+            rating: '-',
+          },
+        })
+      )
       .catch(this.context.setError);
 
     CollectionApiService.getBoardGameRatings()
