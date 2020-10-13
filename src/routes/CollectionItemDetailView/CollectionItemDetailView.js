@@ -9,10 +9,19 @@ export default class CollectionItemDetailView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collectionItem: [],
+      collectionItem: [
+        {
+          owner_status: '',
+          play_count: '',
+          rating: '',
+        },
+      ],
       boardGameRating: [],
       error: null,
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   static contextType = CollectionContext;
@@ -29,6 +38,30 @@ export default class CollectionItemDetailView extends Component {
       .then(this.setBoardGameRatings)
       .catch(this.context.setError);
   }
+
+  handleChange(event) {
+    this.setState({
+      collectionItem: {
+        ...this.state.collectionItem,
+        [event.target.name]: event.target.value,
+      },
+    });
+  }
+
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    this.setState({ error: null });
+
+    const { owner_status, play_count, rating, id } = this.state.collectionItem;
+    const newData = { owner_status, play_count, rating };
+    CollectionApiService.updateCollectionItem(
+      this.context.userData.collectionPath,
+      id,
+      newData
+    ).catch((res) => {
+      this.setState({ error: res.error });
+    });
+  };
 
   setBoardGameRatings = (boardGameRating) => {
     this.setState({ boardGameRating });
@@ -49,10 +82,6 @@ export default class CollectionItemDetailView extends Component {
       idToRemove
     ).then(() => this.goBack());
   };
-
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
 
   render() {
     const { collectionItem, boardGameRating } = this.state;

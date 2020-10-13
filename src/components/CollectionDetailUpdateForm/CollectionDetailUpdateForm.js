@@ -3,16 +3,18 @@ import { Button, Input } from '../Utils/Utils';
 import CollectionApiService from '../../services/collection-service';
 
 export default class CollectionDetailForm extends Component {
-  state = {
-    error: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      
+      owner_status: '',
+      play_count: '',
+      rating: '',
+    };
 
-  componentDidMount() {
-    this.setState({
-      owner_status: this.props.collectionItem.owner_status,
-      play_count: this.props.collectionItem.play_count,
-      rating: this.props.collectionItem.rating,
-    });
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit = (ev) => {
@@ -58,7 +60,7 @@ export default class CollectionDetailForm extends Component {
             required
             id="play_count"
             onChange={this.handleChange}
-            defaultValue={this.state.play_count}
+            value={this.state.play_count}
           ></Input>
         </div>
         <div className="rating">
