@@ -1,0 +1,12 @@
+.App_header {
+  width: 100%;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav.Header h1 {
+  font-size: 30px;
+}

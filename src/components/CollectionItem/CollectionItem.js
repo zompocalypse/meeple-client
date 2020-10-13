@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import CollectionContext from '../../contexts/CollectionContext';
 
 import './CollectionItem.css';
 
 export default class CollectionItem extends Component {
+  static contextType = CollectionContext;
+
   render() {
-    const { collection, expandCollectionDetails } = this.props;
+    const { collection } = this.props;
     return (
-      <div id={collection.id}>
-        <li
-          onClick={() => expandCollectionDetails(collection.id)}
-          className="CollectionList_item"
-        >
-          {collection.title}
-        </li>
-      </div>
+      <Link to={`/${this.context.userData.collectionPath}/${collection.id}`}>
+        <div id={collection.id} className="flex-grid">
+          <p className="CollectionList_item col">{collection.title}</p>
+        </div>
+      </Link>
     );
   }
 }

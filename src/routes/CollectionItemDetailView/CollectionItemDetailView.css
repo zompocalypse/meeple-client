@@ -1,9 +1,7 @@
 .ExpandedCollectionItem {
-  padding: 0 10px;
 }
 
 .ExpandedCollectionItem_Heading {
   display: flex;
   justify-content: space-between;
-  padding-right: 10px;
 }

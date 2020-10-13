@@ -12,6 +12,19 @@ const CollectionApiService = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
+  getByCollectionId(collectionPath, collectionId) {
+    return fetch(
+      `${config.API_ENDPOINT}/collections/${collectionPath}/${collectionId}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `bearer ${TokenService.getAuthToken()}`,
+        },
+      }
+    ).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
   addToCollection(gameId) {
     return fetch(`${config.API_ENDPOINT}/collections`, {
       method: 'POST',
@@ -48,13 +61,12 @@ const CollectionApiService = {
         body: JSON.stringify(newData),
       }
     )
-    .then(res => {
-      if(!res.ok)
-        return res.json().then(error => Promise.reject(error))
-    })
-    .catch(error => {
-      this.setState({ error })
-    })
+      .then((res) => {
+        if (!res.ok) return res.json().then((error) => Promise.reject(error));
+      })
+      .catch((error) => {
+        this.setState({ error });
+      });
   },
   getBoardGames() {
     return fetch(`${config.API_ENDPOINT}/boardgames/`, {

@@ -1,34 +1,49 @@
 import React, { Component } from 'react';
-import { Button } from '../Utils/Utils';
+import { Button, Input } from '../Utils/Utils';
 import CollectionApiService from '../../services/collection-service';
 
 export default class CollectionDetailForm extends Component {
-  state = { error: null };
+  state = {
+    error: null,
+  };
+
+  componentDidMount() {
+    this.setState({
+      owner_status: this.props.collectionItem.owner_status,
+      play_count: this.props.collectionItem.play_count,
+      rating: this.props.collectionItem.rating,
+    });
+  }
 
   handleSubmit = (ev) => {
     ev.preventDefault();
-    const { owner_status, play_count, rating } = ev.target;
 
     this.setState({ error: null });
     CollectionApiService.updateCollectionItem(
-      owner_status.value,
-      play_count.value,
-      rating.value
+      this.state.owner_status,
+      this.state.play_count,
+      this.state.rating
     ).catch((res) => {
       this.setState({ error: res.error });
     });
   };
 
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
   render() {
     const { error } = this.state;
-    const { expandedCollectionItem } = this.props;
-    console.log(this.props);
     return (
       <form className="CollectionDetailUpdateForm" onSubmit={this.handleSubmit}>
         <div role="alert">{error && <p className="red">{error}</p>}</div>
         <div className="owner_status">
           <label htmlFor="CollectionDetail_owner_status">Owner Status</label>
-          <select defaultValue={expandedCollectionItem.owner_status}>
+          <select
+            value={this.state.owner_status}
+            onChange={this.handleChange}
+            name="owner_status"
+          >
             <option>-</option>
             <option value="Own">Own</option>
             <option value="Want">Want</option>
@@ -36,13 +51,23 @@ export default class CollectionDetailForm extends Component {
           </select>
         </div>
         <div className="play_count">
-          <label htmlFor="CollectionDetail_play_count">Play Count</label>
-          <Button className="plus">+</Button>
-          <Button className="minus">-</Button>
+          <label htmlFor="play_count">Play Count</label>
+          <Input
+            name="play_count"
+            type="text"
+            required
+            id="play_count"
+            onChange={this.handleChange}
+            defaultValue={this.state.play_count}
+          ></Input>
         </div>
         <div className="rating">
           <label htmlFor="CollectionDetail_rating">Rating</label>
-          <select defaultValue={expandedCollectionItem.rating}>
+          <select
+            value={this.state.rating}
+            onChange={this.handleChange}
+            name="rating"
+          >
             <option>-</option>
             <option value="1">1</option>
             <option value="2">2</option>
