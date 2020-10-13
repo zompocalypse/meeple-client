@@ -4,6 +4,7 @@ import TokenService from '../services/token-service';
 const CollectionApiService = {
   getByCollectionPath(collectionPath) {
     return fetch(`${config.API_ENDPOINT}/collections/${collectionPath}`, {
+      method: 'GET',
       headers: {
         Authorization: `bearer ${TokenService.getAuthToken()}`,
       },
@@ -35,11 +36,29 @@ const CollectionApiService = {
       }
     );
   },
-  updateCollectionItem() {
-    
+  updateCollectionItem(collectionPath, collectionId, newData) {
+    return fetch(
+      `${config.API_ENDPOINT}/collections/${collectionPath}/${collectionId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `bearer ${TokenService.getAuthToken()}`,
+        },
+        body: JSON.stringify(newData),
+      }
+    )
+    .then(res => {
+      if(!res.ok)
+        return res.json().then(error => Promise.reject(error))
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
   },
   getBoardGames() {
     return fetch(`${config.API_ENDPOINT}/boardgames/`, {
+      method: 'GET',
       headers: {
         Authorization: `bearer ${TokenService.getAuthToken()}`,
       },
@@ -49,6 +68,7 @@ const CollectionApiService = {
   },
   getBoardGameRatings() {
     return fetch(`${config.API_ENDPOINT}/boardgames/average/rating`, {
+      method: 'GET',
       headers: {
         Authorization: `bearer ${TokenService.getAuthToken()}`,
       },

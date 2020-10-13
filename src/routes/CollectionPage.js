@@ -22,6 +22,9 @@ export default class CollectionPage extends Component {
     collectionList: [],
     boardGameList: [],
     boardGameRating: [],
+    owner_status: '',
+    play_count: '',
+    rating: '',
   };
 
   async componentDidMount() {
@@ -151,8 +154,18 @@ export default class CollectionPage extends Component {
     ]);
   };
 
-  updateCollectionDetails = (idToUpdate, field) => {
-    
+  handleUpdateCollectionDetails = (idToUpdate, fieldData) => {
+    const { owner_status, play_count, rating } = this.state;
+    const newData = { owner_status, play_count, rating };
+    CollectionApiService.updateCollectionItem(
+      this.context.userData.collectionPath,
+      idToUpdate,
+      newData
+    );
+  };
+
+  setStateForCollectionChanges = (key, value) => {
+    this.setState({ [key]: value })
   }
 
   render() {
@@ -182,7 +195,7 @@ export default class CollectionPage extends Component {
               expandedCollectionItemRating={
                 this.state.expandedCollectionItemRating
               }
-              handleOwnerStatusChange={this.handleOwnerStatusChange}
+              handleUpdateCollectionDetails={this.handleUpdateCollectionDetails}
             />
           </div>
         </Section>
