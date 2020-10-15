@@ -20,6 +20,7 @@ export default class CollectionItemDetailView extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   static contextType = CollectionContext;
@@ -79,15 +80,14 @@ export default class CollectionItemDetailView extends Component {
   };
 
   goBack() {
-    this.props.history.push(`/${this.context.userData.collectionPath}`);
+    this.props.history.goBack();
   }
 
   handleRemoveFromCollection = (idToRemove) => {
     const collectionPath = this.context.userData.collectionPath;
-    CollectionApiService.removeCollectionItem(
-      collectionPath,
-      idToRemove
-    ).then(() => this.goBack());
+    CollectionApiService.removeCollectionItem(collectionPath, idToRemove)
+      .then(() => this.goBack())
+      .catch(this.context.setError);
   };
 
   render() {
@@ -164,18 +164,23 @@ export default class CollectionItemDetailView extends Component {
         <div>
           {this.context.userData.userId ===
           this.state.collectionItem.user_id ? (
-            <Button
-              className="delete"
-              onClick={() =>
-                this.handleRemoveFromCollection(
-                  collectionItem.id,
-                  collectionItem.boardgame_id,
-                  collectionItem.title
-                )
-              }
-            >
-              Remove
-            </Button>
+            <>
+              <Button
+                className="delete"
+                onClick={() =>
+                  this.handleRemoveFromCollection(
+                    collectionItem.id,
+                    collectionItem.boardgame_id,
+                    collectionItem.title
+                  )
+                }
+              >
+                Remove
+              </Button>
+              <Button onClick={this.goBack} className="go-back">
+                Back to Collection
+              </Button>
+            </>
           ) : (
             ''
           )}

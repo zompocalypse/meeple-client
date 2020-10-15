@@ -28,7 +28,7 @@ export default class BoardGamePage extends Component {
   };
 
   handleAddToCollection = (gameId) => {
-    CollectionApiService.addToCollection(gameId).then((data) => data.json());
+    CollectionApiService.addToCollection(gameId).then((data) => data.json()).catch(this.context.setError);
 
     this.setAvailableBoardGames(
       this.state.boardGameList.filter((item) => item.id !== gameId)

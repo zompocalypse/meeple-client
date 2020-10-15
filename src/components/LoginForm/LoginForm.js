@@ -4,6 +4,7 @@ import AuthApiService from '../../services/auth-api-service';
 import { Button, Input } from '../Utils/Utils';
 
 import jwt_decode from 'jwt-decode';
+import './LoginForm.css';
 
 export default class LoginForm extends Component {
   static defaultProps = {
@@ -39,7 +40,12 @@ export default class LoginForm extends Component {
         <div role="alert">{error && <p className="red">{error}</p>}</div>
         <div className="email">
           <label htmlFor="LoginForm_email">Email Address</label>
-          <Input required name="email" id="LoginForm_email"></Input>
+          <Input
+            required
+            name="email"
+            id="LoginForm_email"
+            className="login_reg_inputs"
+          ></Input>
         </div>
         <div className="password">
           <label htmlFor="LoginForm_password">Password</label>
@@ -48,9 +54,12 @@ export default class LoginForm extends Component {
             name="password"
             type="password"
             id="LoginForm_password"
+            className="login_reg_inputs"
           ></Input>
         </div>
-        <Button type="submit">Login</Button>
+        <Button className="standard login_reg_buttons" type="submit">
+          Login
+        </Button>
       </form>
     );
   }

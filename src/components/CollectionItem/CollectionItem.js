@@ -5,6 +5,10 @@ import CollectionContext from '../../contexts/CollectionContext';
 import './CollectionItem.css';
 
 export default class CollectionItem extends Component {
+  static defaultProps = {
+    collection: {},
+  };
+
   static contextType = CollectionContext;
 
   render() {

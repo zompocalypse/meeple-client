@@ -62,7 +62,7 @@ const CollectionApiService = {
       }
     )
       .then((res) => {
-        if (!res.ok) return res.json().then((error) => Promise.reject(error));
+        if (!res.ok) res.json().then((e) => Promise.reject(e));
       })
       .catch((error) => {
         this.setState({ error });

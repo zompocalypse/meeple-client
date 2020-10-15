@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import AuthApiService from '../../services/auth-api-service';
 import { Input, Required, Button } from '../Utils/Utils';
 
+import './RegisterForm.css';
+
 export default class RegisterForm extends Component {
   static defaultProps = {
     onRegistrationSuccess: () => {},
@@ -11,11 +13,7 @@ export default class RegisterForm extends Component {
 
   handleSubmit = (ev) => {
     ev.preventDefault();
-    const {
-      collection_path,
-      email,
-      password,
-    } = ev.target;
+    const { collection_path, email, password } = ev.target;
 
     this.setState({ error: null });
     AuthApiService.postUser({
@@ -41,13 +39,17 @@ export default class RegisterForm extends Component {
         <div role="alert">{error && <p className="red">{error}</p>}</div>
         <div className="collection_path">
           <label htmlFor="RegistrationForm_collection_path">
-            Collection Name
+            Collection Name <Required />
+            <p className="collection_subtext">
+              (this is used for your collection url)
+            </p>
           </label>
           <Input
             name="collection_path"
             type="text"
             required
             id="RegistrationForm_collection_path"
+            className="login_reg_inputs"
           ></Input>
         </div>
         <div className="email">
@@ -59,6 +61,7 @@ export default class RegisterForm extends Component {
             type="text"
             required
             id="RegistrationForm_email"
+            className="login_reg_inputs"
           ></Input>
         </div>
         <div className="password">
@@ -70,9 +73,12 @@ export default class RegisterForm extends Component {
             type="password"
             required
             id="RegistrationForm_password"
+            className="login_reg_inputs"
           ></Input>
         </div>
-        <Button type="submit">Register</Button>
+        <Button className="login_reg_buttons standard" type="submit">
+          Register
+        </Button>
       </form>
     );
   }

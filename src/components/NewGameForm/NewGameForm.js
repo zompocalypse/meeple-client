@@ -6,6 +6,7 @@ import {
   Textarea,
 } from '../../components/Utils/Utils';
 import CollectionApiService from '../../services/collection-service';
+import './NewGameForm.css';
 
 export default class NewGameForm extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ export default class NewGameForm extends Component {
       .then((res) =>
         CollectionApiService.addToCollection(res.id).then((data) => data.json())
       )
-      .then((data) => {
+      .then(() => {
         this.setState({
           title: '',
           tagline: '',
@@ -71,6 +72,7 @@ export default class NewGameForm extends Component {
             type="text"
             required
             id="NewGame_title"
+            className="new_game_inputs"
             onChange={this.handleChange}
             value={this.state.title}
           ></Input>
@@ -84,6 +86,7 @@ export default class NewGameForm extends Component {
             type="text"
             required
             id="NewGame_tagline"
+            className="new_game_inputs"
             onChange={this.handleChange}
             value={this.state.tagline}
           ></Input>
@@ -97,6 +100,7 @@ export default class NewGameForm extends Component {
             type="text"
             required
             id="NewGame_description"
+            className="new_game_inputs"
             onChange={this.handleChange}
             value={this.state.description}
           ></Textarea>
@@ -110,6 +114,7 @@ export default class NewGameForm extends Component {
             onChange={this.handleChange}
             name="type"
             id="NewGame_type"
+            className="new_game_inputs"
             required
           >
             <option value="-">-</option>
@@ -124,30 +129,32 @@ export default class NewGameForm extends Component {
           </select>
         </div>
         <div className="">
-          <label htmlFor="NewGame_minimum_players">
-            Min Players <Required />
-          </label>
-          <Input
-            name="minimum_players"
-            type="text"
-            required
-            id="NewGame_minimum_players"
-            onChange={this.handleChange}
-            value={this.state.minimum_players}
-          ></Input>
-        </div>
-        <div className="maximum_players">
-          <label htmlFor="NewGame_maximum_players">
-            Max Players <Required />
-          </label>
-          <Input
-            name="maximum_players"
-            type="text"
-            required
-            id="NewGame_maximum_players"
-            onChange={this.handleChange}
-            value={this.state.maximum_players}
-          ></Input>
+          <div className="minimum_players">
+            <label htmlFor="NewGame_minimum_players">
+              Min Players <Required />
+            </label>
+            <Input
+              name="minimum_players"
+              type="text"
+              required
+              id="NewGame_minimum_players"
+              onChange={this.handleChange}
+              value={this.state.minimum_players}
+            ></Input>
+          </div>
+          <div className="maximum_players">
+            <label htmlFor="NewGame_maximum_players">
+              Max Players <Required />
+            </label>
+            <Input
+              name="maximum_players"
+              type="text"
+              required
+              id="NewGame_maximum_players"
+              onChange={this.handleChange}
+              value={this.state.maximum_players}
+            ></Input>
+          </div>
         </div>
         <Button type="submit">Add New Game</Button>
       </form>
