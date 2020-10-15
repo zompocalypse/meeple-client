@@ -17,7 +17,7 @@ export default class BoardGamePage extends Component {
     boardGameList: [],
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     CollectionApiService.getBoardGames()
       .then(this.setAvailableBoardGames)
       .catch(this.context.setError);

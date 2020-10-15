@@ -4,10 +4,13 @@ import App from './components/App/App';
 import './index.css';
 
 import { CollectionProvider } from './contexts/CollectionContext';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-  <CollectionProvider>
-    <App />
-  </CollectionProvider>,
+  <BrowserRouter>
+    <CollectionProvider>
+      <App />
+    </CollectionProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );

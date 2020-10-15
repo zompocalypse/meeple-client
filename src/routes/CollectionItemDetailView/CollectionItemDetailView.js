@@ -24,7 +24,7 @@ export default class CollectionItemDetailView extends Component {
 
   static contextType = CollectionContext;
 
-  async componentDidMount() {
+  componentDidMount() {
     CollectionApiService.getByCollectionId(
       this.context.userData.CollectionPath,
       this.props.match.params.collection_id

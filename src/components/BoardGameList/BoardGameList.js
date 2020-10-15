@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import BoardGame from '../BoardGame/BoardGame';
 
 export default class BoardGameList extends Component {
+  static defaultProps = {
+    boardGameList: [],
+  };
+
   state = {};
 
   render() {
