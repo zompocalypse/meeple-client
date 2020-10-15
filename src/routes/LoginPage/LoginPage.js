@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import LoginForm from '../components/LoginForm/LoginForm';
-import { Section } from '../components/Utils/Utils';
+import LoginForm from '../../components/LoginForm/LoginForm';
+import { Section } from '../../components/Utils/Utils';
 
-import CollectionContext from '../contexts/CollectionContext';
+import CollectionContext from '../../contexts/CollectionContext';
 
 export default class LoginPage extends Component {
   static contextType = CollectionContext;
@@ -11,6 +11,11 @@ export default class LoginPage extends Component {
     location: {},
     history: {
       push: () => {},
+    },
+    match: {
+      params: {
+        collection_path: '',
+      },
     },
   };
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Section } from '../components/Utils/Utils';
+import { Button, Section } from '../../components/Utils/Utils';
 
 import './LandingPage.css';
 
