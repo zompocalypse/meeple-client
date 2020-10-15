@@ -8,5 +8,14 @@
 }
 
 nav.Header h1 {
-  font-size: 30px;
+  font-family: 'Comfortaa';
+  font-size: 2.5em;
+}
+
+.header-links {
+  margin: 30px 0;
+}
+
+a {
+  padding: 0 15px;
 }

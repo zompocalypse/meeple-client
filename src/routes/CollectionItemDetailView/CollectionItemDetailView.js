@@ -132,7 +132,7 @@ export default class CollectionItemDetailView extends Component {
             <label htmlFor="play_count">Play Count</label>
             <Input
               name="play_count"
-              type="text"
+              type="number"
               required
               id="play_count"
               onChange={this.handleChange}

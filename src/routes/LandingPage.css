@@ -1,22 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa');
 
+html {
+  font-size: 75%;
+} /* 12px */
+
 body,
 html {
   height: 100%;
   margin: 0;
+  padding: 10px;
   font-family: 'comfortaa';
 }
 
-h1 {
-  font-family: 'Comfortaa';
-  font-size: 52px;
+h2 {
+  text-align: center;
+  font-size: 1.5em;
 }
 
-.nav-buttons {
-  margin: 0 auto;
+h3 {
+  text-align: center;
+  font-size: 1.3em;
 }
 
-.nav-buttons button,
 .hero button,
 .banner button,
 .add-button,
@@ -66,23 +71,8 @@ h1 {
   text-align: center;
 }
 
-.chevron {
-  position: absolute;
-  left: 50%;
-  top: 95%;
-  color: #fff;
-  border-radius: 50%;
-  border-color: #fff;
-  border-style: solid;
-  padding: 5px;
-}
-
 .what {
   text-align: center;
-}
-
-.what h3 {
-  font-size: 24px;
 }
 
 .how {

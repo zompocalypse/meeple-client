@@ -10,7 +10,6 @@ export default class LandingPage extends Component {
         <div className="hero"></div>
         <Section className="Hero-text">
           <header>
-            <h1>Meeple</h1>
             <h2>The perfect place to manage your board game collection.</h2>
           </header>
         </Section>
@@ -21,8 +20,9 @@ export default class LandingPage extends Component {
               <p>
                 Meeple is an online board game collection manager that allows
                 users to manage their board game collection and share the
-                collection with other users. In managing their collection, users
-                can input games as owned, wish to own, and for sale/trade.
+                collection with other users with a custom unique url. In
+                managing your collection, you can input rate, mark as owned, and
+                count the number of times you've played.
               </p>
             </div>
             <img

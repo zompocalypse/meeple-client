@@ -21,11 +21,10 @@ export class CollectionProvider extends Component {
   };
 
   setUserData = (userData) => {
-    const { collection_path, user_id, first_name, sub } = userData;
+    const { collection_path, user_id, sub } = userData;
     this.setState({
       userData: {
         userId: user_id,
-        firstName: first_name,
         email: sub,
         collectionPath: collection_path,
       },
