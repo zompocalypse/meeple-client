@@ -11,9 +11,9 @@ export default class CollectionItemDetailView extends Component {
     super(props);
     this.state = {
       collectionItem: {
-        owner_status: '-',
+        owner_status: '',
         play_count: '',
-        rating: '-',
+        rating: '',
       },
       boardGameRating: [],
       userData: {},
@@ -141,6 +141,7 @@ export default class CollectionItemDetailView extends Component {
                   name="owner_status"
                   className="collection_detail_inputs"
                 >
+                  <option>-</option>
                   <option value="Own">Own</option>
                   <option value="Want">Want</option>
                   <option value="Sell">For sale</option>
@@ -167,7 +168,7 @@ export default class CollectionItemDetailView extends Component {
                   required
                   className="collection_detail_inputs"
                 >
-                  <option value="0">0</option>
+                  <option>-</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
