@@ -59,6 +59,12 @@ h3 {
   display: flex;
 }
 
+.standard,
+.delete,
+.hollow {
+  font-size: 1.5em;
+}
+
 .standard {
   background-color: #18a0fb;
   color: #fff;
