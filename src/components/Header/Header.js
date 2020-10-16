@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import TokenService from '../../services/token-service';
 import './Header.css';
+import assets from '../../assets/assets';
 
 class Header extends Component {
   handleLogoutClick = () => {
@@ -31,7 +32,10 @@ class Header extends Component {
     return (
       <>
         <nav className="Header">
-          <h1>Meeple</h1>
+          <h1>
+            <img src={assets.pawn_icon} alt="icon of a chess pawn" />
+            Meeple
+          </h1>
           {TokenService.hasAuthToken()
             ? this.renderLogoutLink()
             : this.renderLoginLink()}

@@ -12,19 +12,19 @@ export default class BoardGamePage extends Component {
   }
 
   goBack() {
-    this.props.history.push(`/${this.context.userData.collectionPath}`);
+    this.props.history.push(`/${this.props.match.params.collection_path}`);
   }
 
   render() {
     return (
       <>
-        <NewGameForm
-          toggleAddNewGameForm={this.toggleAddNewGameForm}
-          toggleGames={this.toggleGames}
-        />
-        <Button onClick={this.goBack} className="go-back">
-          Back to Collection
-        </Button>
+        <div className="flex end">
+          <Button onClick={this.goBack} className="hollow go-back">
+            Back to Collection
+          </Button>
+        </div>
+        <h2>Add New Game To Meeple</h2>
+        <NewGameForm />
       </>
     );
   }

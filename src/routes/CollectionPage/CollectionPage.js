@@ -6,6 +6,7 @@ import { Section } from '../../components/Utils/Utils';
 import { Link } from 'react-router-dom';
 
 import './CollectionPage.css';
+import TokenService from '../../services/token-service';
 
 export default class CollectionPage extends Component {
   static contextType = CollectionContext;
@@ -13,6 +14,7 @@ export default class CollectionPage extends Component {
   state = {
     collectionList: [],
     boardGameRating: [],
+    userData: {},
   };
 
   async componentDidMount() {
@@ -28,7 +30,10 @@ export default class CollectionPage extends Component {
   }
 
   setCollectionList = (collectionListData) => {
-    this.setState({ collectionList: collectionListData });
+    this.setState({
+      collectionList: collectionListData,
+      userData: TokenService.getCollectionPath(),
+    });
   };
 
   setBoardGameRatings = (boardGameRating) => {
@@ -36,25 +41,28 @@ export default class CollectionPage extends Component {
   };
 
   renderCollection = () => {
-    const { collectionList = [] } = this.state;
+    const { collectionList = [], userData } = this.state;
     return (
-      <div>
+      <div className="collection_list_view">
         {collectionList.map((item) => (
-          <CollectionItem key={item.id} collection={item} />
+          <CollectionItem key={item.id} collection={item} userData={userData} />
         ))}
       </div>
     );
   };
 
   render() {
-    const { error, userData } = this.context;
+    const { error } = this.context;
     return (
       <>
         <Section>
           <div className="CollectionList">
+            <h2>Your Board Game Collection</h2>
             {this.props.match.params.collection_path ===
-            userData.collectionPath ? (
-              <Link to={`/${userData.collectionPath}/add-to-collection`}>
+            this.state.userData.collection_path ? (
+              <Link
+                to={`/${this.state.userData.collection_path}/add-to-collection`}
+              >
                 Add games to collection
               </Link>
             ) : (

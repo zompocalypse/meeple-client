@@ -9,15 +9,15 @@ export default class BoardGame extends Component {
   render() {
     const { game } = this.props;
     return (
-      <li>
+      <div>
         <Button
-          className="plus"
+          className="standard add"
           onClick={() => this.props.handleAddToCollection(game.id)}
         >
-          +
+          Add
         </Button>
         {game.title}
-      </li>
+      </div>
     );
   }
 }

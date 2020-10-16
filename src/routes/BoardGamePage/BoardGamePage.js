@@ -4,6 +4,7 @@ import BoardGameList from '../../components/BoardGameList/BoardGameList';
 import CollectionApiService from '../../services/collection-service';
 import CollectionContext from '../../contexts/CollectionContext';
 import { Button } from '../../components/Utils/Utils';
+import TokenService from '../../services/token-service';
 
 export default class BoardGamePage extends Component {
   static contextType = CollectionContext;
@@ -15,6 +16,7 @@ export default class BoardGamePage extends Component {
 
   state = {
     boardGameList: [],
+    userData: {},
   };
 
   componentDidMount() {
@@ -24,11 +26,16 @@ export default class BoardGamePage extends Component {
   }
 
   setAvailableBoardGames = (boardGameData) => {
-    this.setState({ boardGameList: boardGameData });
+    this.setState({
+      boardGameList: boardGameData,
+      userData: TokenService.getCollectionPath(),
+    });
   };
 
   handleAddToCollection = (gameId) => {
-    CollectionApiService.addToCollection(gameId).then((data) => data.json()).catch(this.context.setError);
+    CollectionApiService.addToCollection(gameId)
+      .then((data) => data.json())
+      .catch(this.context.setError);
 
     this.setAvailableBoardGames(
       this.state.boardGameList.filter((item) => item.id !== gameId)
@@ -40,23 +47,26 @@ export default class BoardGamePage extends Component {
   }
 
   render() {
-    const { boardGameList } = this.state;
-    const { userData } = this.context;
+    const { boardGameList, userData } = this.state;
     return (
       <>
-        <Link to={`/${userData.collectionPath}/add-to-collection/create-new`}>
+        <div className="flex end go-back">
+          <Button onClick={this.goBack} className="hollow go-back">
+            Back to Collection
+          </Button>
+        </div>
+        <h2>Available Board Games</h2>
+        <Link to={`/${userData.collection_path}/add-to-collection/create-new`}>
           Create new game
         </Link>
         <br />
         {this.state.hideShowNewGameForm && this.renderNewGameForm()}
+        <br />
         <BoardGameList
           boardGameList={boardGameList}
           handleAddToCollection={this.handleAddToCollection}
         />
         <br />
-        <Button onClick={this.goBack} className="go-back">
-          Back to Collection
-        </Button>
       </>
     );
   }

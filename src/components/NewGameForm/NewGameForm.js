@@ -23,6 +23,11 @@ export default class NewGameForm extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.goBack = this.goBack.bind(this);
+  }
+
+  goBack() {
+    this.props.history.push(`/${this.props.match.params.collection_path}`);
   }
 
   handleSubmit = (ev) => {
@@ -49,6 +54,7 @@ export default class NewGameForm extends Component {
           maximum_players: '',
         });
       })
+      .then(this.goBack)
       .catch((res) => {
         this.setState({ error: res.error });
       });
@@ -100,7 +106,7 @@ export default class NewGameForm extends Component {
             type="text"
             required
             id="NewGame_description"
-            className="new_game_inputs"
+            className="new_game_inputs text-area"
             onChange={this.handleChange}
             value={this.state.description}
           ></Textarea>
@@ -128,7 +134,7 @@ export default class NewGameForm extends Component {
             <option value="Wargames">Wargames</option>
           </select>
         </div>
-        <div className="">
+        <div className="flex flex-start">
           <div className="minimum_players">
             <label htmlFor="NewGame_minimum_players">
               Min Players <Required />
@@ -138,10 +144,12 @@ export default class NewGameForm extends Component {
               type="text"
               required
               id="NewGame_minimum_players"
+              className="min-max-inputs"
               onChange={this.handleChange}
               value={this.state.minimum_players}
             ></Input>
           </div>
+          <span className="need_space"> - </span>
           <div className="maximum_players">
             <label htmlFor="NewGame_maximum_players">
               Max Players <Required />
@@ -151,12 +159,15 @@ export default class NewGameForm extends Component {
               type="text"
               required
               id="NewGame_maximum_players"
+              className="min-max-inputs"
               onChange={this.handleChange}
               value={this.state.maximum_players}
             ></Input>
           </div>
         </div>
-        <Button type="submit">Add New Game</Button>
+        <Button className="standard new_game_buttons" type="submit">
+          Add New Game
+        </Button>
       </form>
     );
   }

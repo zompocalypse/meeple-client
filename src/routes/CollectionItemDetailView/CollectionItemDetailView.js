@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Section, Button, Input } from '../../components/Utils/Utils';
 import CollectionContext from '../../contexts/CollectionContext';
 import CollectionApiService from '../../services/collection-service';
+import TokenService from '../../services/token-service';
 
 import './CollectionItemDetailView.css';
 
@@ -15,6 +16,7 @@ export default class CollectionItemDetailView extends Component {
         rating: '-',
       },
       boardGameRating: [],
+      userData: {},
       error: null,
     };
 
@@ -27,7 +29,7 @@ export default class CollectionItemDetailView extends Component {
 
   componentDidMount() {
     CollectionApiService.getByCollectionId(
-      this.context.userData.CollectionPath,
+      TokenService.getCollectionPath().collection_path,
       this.props.match.params.collection_id
     )
       .then(this.setCollectionItemDetail)
@@ -63,7 +65,7 @@ export default class CollectionItemDetailView extends Component {
     const { owner_status, play_count, rating, id } = this.state.collectionItem;
     const newData = { owner_status, play_count, rating };
     CollectionApiService.updateCollectionItem(
-      this.context.userData.collectionPath,
+      this.state.userData.collection_path,
       id,
       newData
     ).catch((res) => {
@@ -76,7 +78,10 @@ export default class CollectionItemDetailView extends Component {
   };
 
   setCollectionItemDetail = (collectionItem) => {
-    this.setState({ collectionItem });
+    this.setState({
+      collectionItem,
+      userData: TokenService.getCollectionPath(),
+    });
   };
 
   goBack() {
@@ -84,7 +89,7 @@ export default class CollectionItemDetailView extends Component {
   }
 
   handleRemoveFromCollection = (idToRemove) => {
-    const collectionPath = this.context.userData.collectionPath;
+    const collectionPath = this.state.userData.collection_path;
     CollectionApiService.removeCollectionItem(collectionPath, idToRemove)
       .then(() => this.goBack())
       .catch(this.context.setError);
@@ -95,6 +100,11 @@ export default class CollectionItemDetailView extends Component {
     const { error } = this.state;
     return (
       <Section className="CollectionItem">
+        <div className="flex end">
+          <Button onClick={this.goBack} className="hollow go-back">
+            Back to Collection
+          </Button>
+        </div>
         <div className="CollectionItem_Heading">
           <h2>{collectionItem.title}</h2>
           <h2>
@@ -110,81 +120,89 @@ export default class CollectionItemDetailView extends Component {
           {collectionItem.maximum_players}
         </p>
         <p>Type: {collectionItem.type}</p>
-        <form
-          className="CollectionDetailUpdateForm"
-          onSubmit={this.handleSubmit}
-        >
-          <div role="alert">{error && <p className="red">{error}</p>}</div>
-          <div className="owner_status">
-            <label htmlFor="CollectionDetail_owner_status">Owner Status</label>
-            <select
-              value={this.state.collectionItem.owner_status}
-              onChange={this.handleChange}
-              name="owner_status"
+        {this.state.userData.user_id === this.state.collectionItem.user_id ? (
+          <>
+            <form
+              className="CollectionDetailUpdateForm"
+              onSubmit={this.handleSubmit}
             >
-              <option>-</option>
-              <option value="Own">Own</option>
-              <option value="Want">Want</option>
-              <option value="Sell">For sale</option>
-            </select>
-          </div>
-          <div className="play_count">
-            <label htmlFor="play_count">Play Count</label>
-            <Input
-              name="play_count"
-              type="number"
-              required
-              id="play_count"
-              onChange={this.handleChange}
-              defaultValue={this.state.collectionItem.play_count}
-            ></Input>
-          </div>
-          <div className="rating">
-            <label htmlFor="CollectionDetail_rating">Rating</label>
-            <select
-              value={this.state.collectionItem.rating}
-              onChange={this.handleChange}
-              name="rating"
-            >
-              <option>-</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </div>
-          <Button type="submit">Save</Button>
-        </form>
-        <div>
-          {this.context.userData.userId ===
-          this.state.collectionItem.user_id ? (
-            <>
-              <Button
-                className="delete"
-                onClick={() =>
-                  this.handleRemoveFromCollection(
-                    collectionItem.id,
-                    collectionItem.boardgame_id,
-                    collectionItem.title
-                  )
-                }
-              >
-                Remove
-              </Button>
-              <Button onClick={this.goBack} className="go-back">
-                Back to Collection
-              </Button>
-            </>
-          ) : (
-            ''
-          )}
-        </div>
+              <div role="alert">{error && <p className="red">{error}</p>}</div>
+              <div className="owner_status">
+                <label htmlFor="CollectionDetail_owner_status">
+                  Owner Status:{' '}
+                </label>
+                <select
+                  value={this.state.collectionItem.owner_status}
+                  onChange={this.handleChange}
+                  name="owner_status"
+                  className="collection_detail_inputs"
+                >
+                  <option>-</option>
+                  <option value="Own">Own</option>
+                  <option value="Want">Want</option>
+                  <option value="Sell">For sale</option>
+                </select>
+              </div>
+              <div className="play_count">
+                <label htmlFor="play_count">Play Count: </label>
+                <Input
+                  name="play_count"
+                  type="number"
+                  required
+                  id="play_count"
+                  className="collection_detail_inputs"
+                  onChange={this.handleChange}
+                  defaultValue={this.state.collectionItem.play_count}
+                ></Input>
+              </div>
+              <div className="rating">
+                <label htmlFor="rating">Rating: </label>
+                <select
+                  value={this.state.collectionItem.rating}
+                  onChange={this.handleChange}
+                  name="rating"
+                  className="collection_detail_inputs"
+                >
+                  <option>-</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+              <div className="flex space-between">
+                <Button className="standard need-space-above" type="submit">
+                  Save Changes
+                </Button>
+                <Button
+                  className="delete need-space-above"
+                  type="button"
+                  onClick={() =>
+                    this.handleRemoveFromCollection(
+                      collectionItem.id,
+                      collectionItem.boardgame_id,
+                      collectionItem.title
+                    )
+                  }
+                >
+                  Remove
+                </Button>
+              </div>
+            </form>
+          </>
+        ) : (
+          <Section>
+            <p>Status: {this.state.collectionItem.owner_status}</p>
+            <p>Play Count: {this.state.collectionItem.play_count}</p>
+            <p>Rating: {this.state.collectionItem.rating}</p>
+          </Section>
+        )}
       </Section>
     );
   }
