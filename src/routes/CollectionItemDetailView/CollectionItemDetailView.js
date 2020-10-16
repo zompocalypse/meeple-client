@@ -101,7 +101,11 @@ export default class CollectionItemDetailView extends Component {
     return (
       <Section className="CollectionItem">
         <div className="flex end">
-          <Button onClick={this.goBack} className="hollow go-back">
+          <Button
+            type="button"
+            onClick={this.goBack}
+            className="hollow go-back"
+          >
             Back to Collection
           </Button>
         </div>
@@ -161,6 +165,7 @@ export default class CollectionItemDetailView extends Component {
                   value={this.state.collectionItem.rating}
                   onChange={this.handleChange}
                   name="rating"
+                  required
                   className="collection_detail_inputs"
                 >
                   <option>-</option>
