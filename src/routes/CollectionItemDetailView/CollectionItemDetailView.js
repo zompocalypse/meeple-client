@@ -29,7 +29,7 @@ export default class CollectionItemDetailView extends Component {
 
   componentDidMount() {
     CollectionApiService.getByCollectionId(
-      TokenService.getCollectionPath().collection_path,
+      this.props.match.params.collection_path,
       this.props.match.params.collection_id
     )
       .then(this.setCollectionItemDetail)
