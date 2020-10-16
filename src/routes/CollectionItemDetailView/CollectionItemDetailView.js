@@ -141,7 +141,6 @@ export default class CollectionItemDetailView extends Component {
                   name="owner_status"
                   className="collection_detail_inputs"
                 >
-                  <option>-</option>
                   <option value="Own">Own</option>
                   <option value="Want">Want</option>
                   <option value="Sell">For sale</option>
