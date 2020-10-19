@@ -13,40 +13,40 @@ https://meeple.vercel.com
 ### API Documentation
 #### Auth  - User authentication endpoint
 ###### /api/auth/login
-POST - requests must contain email and password in the request body.
+- POST - requests must contain email and password in the request body.
 
 ------------
 #### User - User registration endpoint
 ###### /api/users
-POST - requests muct contain email, password, and collection path in the request body
+- POST - requests muct contain email, password, and collection path in the request body
 
 ------------
 
 #### Boardgames - Boardgames endpoints
 ###### /api/boardgames
-GET - retrieve all available games for authenticated user.  Requests must include user_id in request body
-POST - add new boardgame to application.  Requests must include title, tagline, description, type, minimum_players, and maximum_players in request body.
+- GET - retrieve all available games for authenticated user.  Requests must include user_id in request body
+- POST - add new boardgame to application.  Requests must include title, tagline, description, type, minimum_players, and maximum_players in request body.
 
 ###### /api/boardgames/:boardgame_id
-GET - retrieve single board game based on the id provided in params (boardgame_id).
+- GET - retrieve single board game based on the id provided in params (boardgame_id).
 
 ###### /api/boardgames/average/rating
-GET - retrieve average ratings for all boardgames
+- GET - retrieve average ratings for all boardgames
 
 ------------
 
 #### Collections - Collections endpoints
 ###### /api/collections
-GET - retieve all collections for all users
-POST - add new game to the authenticated user.  Request must include boardgame_id in request body.
+- GET - retieve all collections for all users
+- POST - add new game to the authenticated user.  Request must include boardgame_id in request body.
 
 ###### /api/collections/:collection_path
-GET - retrieve all games for a specific collection_path (user defined collection name).  collection_path pulled from params.
+- GET - retrieve all games for a specific collection_path (user defined collection name).  collection_path pulled from params.
 
 ###### /api/collections/:collection_path/:collection_id
-GET - retrieve specific collection item.  collection_path and collection_id pulled from params.
-PATCH - Update owner_status, rating, or play_count for the specified collection_id.  Requests must contain at least one of owner_status, rating, OR play_count.
-DELETE - Delete the specified collection_id.  collection_id retrieved from params.
+- GET - retrieve specific collection item.  collection_path and collection_id pulled from params.
+- PATCH - Update owner_status, rating, or play_count for the specified collection_id.  Requests must contain at least one of owner_status, rating, OR play_count.
+- DELETE - Delete the specified collection_id.  collection_id retrieved from params.
 
 [![Home Page](https://imgur.com/1exia5c "Home Page")](https://imgur.com/1exia5c "Home Page")
 [![Login Page](https://imgur.com/Ng4U5e3 "Login Page")](https://imgur.com/Ng4U5e3 "Login Page")
